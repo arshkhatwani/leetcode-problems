@@ -3,6 +3,39 @@ using namespace std;
 
 // Logic https://youtu.be/phgjL7SbsWs
 
+/*
+Greedy Approach
+
+We keep a track of farthest index which we can reach and we also keep a current variable which helps us in determining when the current jump has exhausted and we can increase our jumps
+
+Watch video for detailed explanation: https://youtu.be/wLPdkLM_BWo
+*/
+
+// Greedy Solution O(n)
+class Solution
+{
+public:
+    int jump(vector<int> &a)
+    {
+        int n = a.size();
+        int jumps = 0, farthest = 0, current = 0;
+
+        for (int i = 0; i < n - 1; i++)
+        {
+            farthest = max(farthest, i + a[i]);
+
+            if (i == current)
+            {
+                current = farthest;
+                jumps++;
+            }
+        }
+
+        return jumps;
+    }
+};
+
+// DP Solution
 int jump(vector<int> &a)
 {
     int n = a.size();
