@@ -12,6 +12,8 @@ If the top of pq is same as the last char of the result string then we pop it an
 
 TC: O(n) (for iterating the string) + O(26log(26)) => O(n)
 SC: O(26)(hashmap) + O(26)(max heap) => O(1)
+
+Another approach: https://leetcode.com/problems/reorganize-string/discuss/232469/Java-No-Sort-O(N)-0ms-beat-100
 */
 
 class Solution
