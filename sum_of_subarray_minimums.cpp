@@ -26,6 +26,39 @@ TC: O(n)
 SC: O(n)
 */
 
+// Single pass solution
+class Solution
+{
+public:
+    int sumSubarrayMins(vector<int> &a)
+    {
+        int n = a.size();
+        stack<int> st;
+        long long left, right, count, ans = 0, MOD = 1e9 + 7;
+
+        for (int i = 0; i <= n; i++)
+        {
+            while (i == n or (!st.empty() and a[st.top()] >= a[i]))
+            {
+                int popped = st.top();
+                st.pop();
+
+                left = !st.empty() ? popped - st.top() - 1 : popped;
+                right = i - popped - 1;
+                count = left + right + left * right + 1; // 1 => self subarray
+
+                ans += (count * a[popped]) % MOD;
+                ans %= MOD;
+
+                if (st.empty())
+                    break;
+            }
+            st.push(i);
+        }
+        return ans;
+    }
+};
+
 class Solution
 {
     vector<int> nseFromLeft(vector<int> &a)
