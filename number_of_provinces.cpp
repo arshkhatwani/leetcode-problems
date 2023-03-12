@@ -3,8 +3,81 @@ using namespace std;
 
 /*
 You just need to count the number of connected components in a graph
+
+Another Approach:
+This problem can also be solved using DSU. And the ultimate parents can be counted after all the unions
+Any node which is parent of itself is the ultimate parent
 */
 
+// DSU
+class Solution
+{
+    vector<int> rank, parent;
+    int findPar(int node)
+    {
+        if (node == parent[node])
+            return node;
+        return parent[node] = findPar(parent[node]);
+    }
+    void unionByRank(int a, int b)
+    {
+        int parentA = findPar(a);
+        int parentB = findPar(b);
+
+        if (parentA == parentB)
+            return;
+
+        if (rank[parentA] > rank[parentB])
+        {
+            parent[parentB] = parentA;
+        }
+        else if (rank[parentA] < rank[parentB])
+        {
+            parent[parentA] = parentB;
+        }
+        else
+        {
+            parent[parentA] = parentB;
+            rank[parentB]++;
+        }
+    }
+
+public:
+    int findCircleNum(vector<vector<int>> &isConnected)
+    {
+        int n = isConnected.size();
+        rank.resize(n + 1, 0);
+        parent.resize(n + 1, 0);
+
+        for (int i = 0; i < n; i++)
+        {
+            rank[i] = 0;
+            parent[i] = i;
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (isConnected[i][j])
+                {
+                    unionByRank(i, j);
+                }
+            }
+        }
+
+        int totalParents = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (findPar(i) == i)
+                totalParents++;
+        }
+
+        return totalParents;
+    }
+};
+
+// Graph
 class Solution
 {
 public:
