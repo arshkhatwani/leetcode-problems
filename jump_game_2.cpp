@@ -11,6 +11,32 @@ We keep a track of farthest index which we can reach and we also keep a current 
 Watch video for detailed explanation: https://youtu.be/wLPdkLM_BWo
 */
 
+// Greedy Solution 2
+class Solution
+{
+public:
+    int jump(vector<int> &nums)
+    {
+        int n = nums.size();
+        int maxReach = 0, cur = 0, jumps = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (i > cur)
+            {
+                jumps++;
+                cur = maxReach;
+            }
+            int reach = nums[i] + i;
+            if (reach > maxReach)
+            {
+                maxReach = reach;
+            }
+        }
+        return jumps;
+    }
+};
+
 // Greedy Solution O(n)
 class Solution
 {
