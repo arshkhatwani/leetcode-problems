@@ -7,10 +7,10 @@ Since we are in a BST, the LCA would be basically the last point of split in the
 For example if the given BST is
      0
     / \
-  -1   1
+  -1   4
       / \
-    -2   3
-Here, LCA(-2,3) = 1
+     2   6
+Here, LCA(2,6) = 4
 
 For cases where both the nodes are on one side
      6
